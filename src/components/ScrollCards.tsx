@@ -6,6 +6,7 @@ import {
   useScroll,
   useTransform,
   useMotionValueEvent,
+  type MotionValue,
 } from "framer-motion";
 
 /** 以 1920×1080 為設計稿基準等比縮放 */
@@ -112,7 +113,7 @@ function CardItem({
 }: {
   project: Project;
   index: number;
-  floatIndex: motion.MotionValue<number>;
+  floatIndex: MotionValue<number>;
 }) {
   const offset = useTransform(floatIndex, (v) => index - v);
 
