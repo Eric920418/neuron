@@ -147,25 +147,25 @@ export default function WorksPage() {
         alt=""
         aria-hidden="true"
         draggable={false}
-        className="pointer-events-none absolute right-[-5%] top-[10%] z-0 w-[35%] max-w-[600px] select-none opacity-40"
+        className="pointer-events-none absolute right-[20%] top-[0] z-0 w-[35%] max-w-[450px] select-none "
       />
       <img
+        src="/Group4.png"
+        alt=""
+        aria-hidden="true"
+        draggable={false}
+        className="pointer-events-none absolute right-[14%] top-[20%] z-0 w-[20%] max-w-[500px] select-none "
+      />
+     <img
         src="/Group.png"
         alt=""
         aria-hidden="true"
         draggable={false}
-        className="pointer-events-none absolute left-[-8%] top-[40%] z-0 w-[30%] max-w-[500px] select-none opacity-30"
-      />
-      <img
-        src="/Group.png"
-        alt=""
-        aria-hidden="true"
-        draggable={false}
-        className="pointer-events-none absolute left-[-5%] bottom-[10%] z-0 w-[28%] max-w-[480px] select-none opacity-25"
+        className="pointer-events-none absolute left-[0%] top-[180%] z-0 w-[35%] max-w-[500px] select-none "
       />
 
       {/* ===== MAIN CONTENT ===== */}
-      <main className="relative z-10 mx-auto max-w-[1920px] px-6 pt-[160px] pb-24 lg:px-16">
+      <main className="relative z-10 mx-auto max-w-[1920px] px-6 pt-[304px] pb-[500px] lg:px-16">
         {/* 頁面標題 */}
         <h1
           className="mb-16"
@@ -180,7 +180,7 @@ export default function WorksPage() {
         {/* 左篩選 + 右卡片 */}
         <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
           {/* 左側分類篩選 */}
-          <aside className="flex-shrink-0 lg:w-[200px]">
+          <aside className="flex-shrink-0 lg:w-[500px]">
             <ul className="flex flex-row flex-wrap gap-6 lg:flex-col lg:gap-0">
               {CATEGORIES.map((cat) => (
                 <li key={cat.id}>
@@ -201,9 +201,9 @@ export default function WorksPage() {
           </aside>
 
           {/* 右側內容 */}
-          <section className="flex-1">
+          <section className="flex-1 mt-[160px]">
             {/* 2×2 卡片格 */}
-            <div className="grid grid-cols-1 gap-[14px] sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-[60px] sm:grid-cols-2">
               {CATEGORY_CARDS.map((card) => (
                 <div key={card.id}>
                   {/* 卡片主體 */}
