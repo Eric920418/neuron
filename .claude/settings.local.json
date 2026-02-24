@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(pnpm create:*)",
+      "mcp__Figma_MCP_PRO__get_figma_data",
+      "Bash(python3:*)",
+      "Bash(pnpm add:*)",
+      "mcp__Figma_MCP_PRO__check_reference",
+      "Bash(pnpm run:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

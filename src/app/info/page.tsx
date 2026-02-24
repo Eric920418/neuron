@@ -72,14 +72,30 @@ export default function InfoPage() {
       </nav>
 
       {/* ===== MAIN CONTENT ===== */}
-      <main className="mx-auto max-w-[1920px] px-6 pt-[160px] pb-0 lg:px-16">
+      <main className="mx-auto max-w-[1920px] px-6 pt-[80px] pb-0 lg:px-16">
         {/* 頁面標題 */}
-        <h1
-          className="mb-16 text-white"
-          style={{ fontSize: "clamp(36px, 3.125vw, 60px)" }}
-        >
-          展覽資訊
-        </h1>
+        <div className="relative">
+          <h1
+            className="my-[160px] text-white"
+            style={{ fontSize: "clamp(36px, 3.125vw, 60px)" }}
+          >
+            展覽資訊
+          </h1>
+          <img
+            src="/Group3.png"
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className="absolute right-0 top-[-200%] w-[35%]"
+          />
+          <img
+            src="/Group4.png"
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className="absolute right-0 top-[60%] w-[20%]"
+          />
+        </div>
 
         {/* 三個資訊區塊 */}
         <div className="flex flex-col" style={{ gap: "30px" }}>
@@ -88,19 +104,19 @@ export default function InfoPage() {
               {/* 分隔線 */}
               {idx === 0 && (
                 <div
-                  className="mb-[30px] h-px w-full max-w-[1723px]"
+                  className="mb-[30px] h-px w-full max-w-[1723px] "
                   style={{ backgroundColor: "rgb(99,149,149)" }}
                 />
               )}
-              <div>
+              <div className="py-[24px]"  style={{ paddingInline: "clamp(10px, 8.333vw, 60px)" }}>
                 <h2
-                  className="font-bold text-white"
+                  className="font-bold text-white "
                   style={{ fontSize: "clamp(24px, 1.875vw, 36px)" }}
                 >
                   {section.title}
                 </h2>
                 <p
-                  className="mt-2"
+                  className="mt-[34px]"
                   style={{
                     fontSize: "clamp(16px, 1.25vw, 24px)",
                     color: "rgb(237,239,241)",
@@ -114,12 +130,16 @@ export default function InfoPage() {
                 className="mt-[30px] h-px w-full max-w-[1723px]"
                 style={{ backgroundColor: "rgb(99,149,149)" }}
               />
+                 <div
+                className="mt-[30px] h-px w-full max-w-[1723px]"
+                style={{ backgroundColor: "rgb(99,149,149)" }}
+              />
             </div>
           ))}
         </div>
 
         {/* ===== 觀展須知區塊 ===== */}
-        <section className="relative mt-20 max-w-[1579px]">
+        <section className="relative my-20 max-w-[1579px] px-[60px]">
           <h3
             className="mb-8 text-white"
             style={{ fontSize: "clamp(18px, 1.25vw, 24px)" }}
@@ -154,6 +174,13 @@ export default function InfoPage() {
 
       {/* ===== FOOTER ===== */}
       <footer className="relative overflow-hidden pt-16">
+           <img
+            src="/Group.png"
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className="absolute left-[-8%] top-[0] w-[35%] opacity-40"
+          />
         {/* Social Links */}
         <div className="space-y-16 px-6 lg:px-16">
           {SOCIAL_LINKS.map((link) => (
