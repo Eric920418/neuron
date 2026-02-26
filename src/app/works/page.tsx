@@ -4,6 +4,29 @@ const SOCIAL_LINKS = [
   { name: "LINE", href: "#" },
 ];
 
+/** 作品名 → slug 對照 */
+const WORK_SLUGS: Record<string, string> = {
+  "須臾·緩存": "xu-yu-huan-cun",
+  "異鄉的餐桌": "yi-xiang-de-can-zhuo",
+  "你前面有車": "ni-qian-mian-you-che",
+  "怎麼這樣字": "zen-me-zhe-yang-zi",
+  "RESeTROOM": "resetroom",
+  "爆改人生": "bao-gai-ren-sheng",
+  "觸.zip": "chu-zip",
+  "隱 yǐn": "yin",
+  "今速配 Drive-in Love": "jin-su-pei",
+  "聲影審問": "sheng-ying-shen-wen",
+  "奴隸牌": "nu-li-pai",
+  "童話深淵": "tong-hua-shen-yuan",
+  "逆衍者": "ni-yan-zhe",
+  "It's MIne": "its-mine",
+  "Faraway": "faraway",
+  "無神之國的倪斯": "wu-shen-zhi-guo",
+  "NOVUS": "novus",
+  "青蛙下蛋": "qing-wa-xia-dan",
+  "是女兒，也是接班人": "shi-nv-er",
+};
+
 const CATEGORIES = [
   {
     id: "all",
@@ -242,15 +265,16 @@ export default function WorksPage() {
                   {/* 卡片下方作品列表 */}
                   <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2 pb-8">
                     {card.works.map((work) => (
-                      <span
+                      <a
                         key={work}
-                        className="text-white"
+                        href={`/works/${WORK_SLUGS[work] || "#"}`}
+                        className="text-white transition-colors hover:text-[rgb(99,149,149)]"
                         style={{
                           fontSize: "clamp(14px, 1.25vw, 24px)",
                         }}
                       >
                         {work}
-                      </span>
+                      </a>
                     ))}
                   </div>
                 </div>

@@ -35,6 +35,7 @@ src/
     page.tsx          # 首頁
     info/page.tsx     # 展覽資訊頁面 (/info)
     works/page.tsx    # 作品介紹頁面 (/works)
+    works/[slug]/page.tsx  # 作品詳細頁面 (/works/:slug)
     reserve/page.tsx  # 預約觀展頁面 (/reserve)
     contact/page.tsx  # 聯絡我們頁面 (/contact)
     globals.css       # 全域樣式 + Marquee 動畫
@@ -75,6 +76,19 @@ public/
 5. **作品名稱** — 每張卡片下方列出該分類所有作品，2 欄排列
 6. **裝飾元素** — 3 組 Group.png 神經元裝飾圖 (半透明背景)
 7. **Footer** — 社群連結 (INSTAGRAM / THREADS / LINE) + 綠色發光大 Logo
+
+### 作品詳細頁 (`/works/[slug]`)
+
+1. **Navbar** — 與首頁共用 (固定頂部，「作品」高亮)
+2. **分類標頭** — 左側中文分類名 + 右側英文分類名 (60px, teal 色)
+3. **Hero 圖片區** — 主作品大圖 (左) + 同類別其他作品縮圖 (右，可點擊切換)
+4. **Teal 裝飾線** — 15px × 90px 垂直分隔
+5. **作品資訊** — 作品標題 (60px) / 英文組名 / 組員名單 / 作品描述
+6. **前往預約按鈕** — teal 邊框按鈕，連結至 /reserve
+7. **作品圖片展示** — 5 張大圖垂直排列 (16:9 比例，待替換真實圖片)
+8. **裝飾元素** — 2 組 Group.png 神經元裝飾圖 (半透明背景)
+9. **Footer** — 社群連結 (INSTAGRAM / THREADS / LINE) + 綠色發光大 Logo
+10. **SSG 靜態生成** — 19 個作品頁透過 generateStaticParams 預渲染
 
 ### 預約觀展頁 (`/reserve`)
 

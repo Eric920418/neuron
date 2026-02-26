@@ -94,33 +94,47 @@ export default function ContactPage() {
         alt=""
         aria-hidden="true"
         draggable={false}
-        className="pointer-events-none absolute right-[-5%] top-[8%] z-0 w-[40%] max-w-[700px] select-none opacity-50"
+        className="pointer-events-none absolute right-[35%] top-[-10%] z-0 w-[35%] max-w-[800px] select-none "
+      />
+      <img
+        src="/Group5.png"
+        alt=""
+        aria-hidden="true"
+        draggable={false}
+        className="pointer-events-none absolute left-[65%] top-[0%] z-0 w-[25%] max-w-[800px] select-none"
+      />
+      <img
+        src="/Group4.png"
+        alt=""
+        aria-hidden="true"
+        draggable={false}
+        className="pointer-events-none absolute left-[74%] top-[30%] z-0 w-[25%] max-w-[800px] select-none"
       />
       <img
         src="/Group.png"
         alt=""
         aria-hidden="true"
         draggable={false}
-        className="pointer-events-none absolute left-[-8%] top-[45%] z-0 w-[30%] max-w-[500px] select-none opacity-30"
+        className="pointer-events-none absolute left-[-15%] top-[140%] z-0 w-[40%] max-w-[800px] select-none "
       />
 
       {/* ===== MAIN CONTENT ===== */}
-      <main className="relative z-10 mx-auto max-w-[1920px] px-6 pt-[160px] pb-24 lg:px-16">
+      <main className="relative z-10 mx-auto max-w-[1920px] px-6 pt-[417px] pb-24 lg:px-16">
         {/* 頁面標題 */}
         <h1
-          className="mb-24 lowercase"
+          className="mb-24 lowercase font-bold"
           style={{
             fontSize: "clamp(36px, 3.125vw, 60px)",
             color: "rgb(237,239,241)",
           }}
         >
-          contact us
+          contact <span className="text-[#639595]">us</span>
         </h1>
 
         {/* 意見回饋表單 */}
-        <div className="mx-auto max-w-[800px]">
+        <div className="ml-auto max-w-[800px]">
           <h2
-            className="mb-10 text-center"
+            className="mb-10 text-left font-bold"
             style={{
               fontSize: "clamp(32px, 2.5vw, 48px)",
               color: "rgb(237,239,241)",
@@ -130,7 +144,7 @@ export default function ContactPage() {
           </h2>
 
           {/* Tabs */}
-          <div className="mb-12 flex items-center justify-center gap-12">
+          <div className="mb-12 flex items-center justify-start gap-12">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
