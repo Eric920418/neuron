@@ -251,12 +251,6 @@ function getProject(slug: string) {
   return PROJECTS.find((p) => p.slug === slug);
 }
 
-function getSiblings(project: Project) {
-  return PROJECTS.filter(
-    (p) => p.categoryId === project.categoryId && p.slug !== project.slug
-  );
-}
-
 /* ─────────────────────── static params ─────────────────────── */
 
 export function generateStaticParams() {
@@ -286,8 +280,6 @@ export default async function WorkDetailPage({
   if (!project) notFound();
 
   const category = CATEGORIES[project.categoryId];
-  const siblings = getSiblings(project);
-
   /** placeholder 色塊 (之後替換為真實圖片) */
   const heroPlaceholder = project.heroImage || "";
   const galleryCount = project.galleryImages.length || 5;
@@ -398,9 +390,9 @@ export default async function WorkDetailPage({
 
       {/* ===== HERO 圖片輪播區 ===== */}
       <HeroCarousel
-        current={{ slug: project.slug, title: project.title, heroImage: heroPlaceholder }}
-        siblings={siblings.map(s => ({ slug: s.slug, title: s.title, heroImage: s.heroImage || "" }))}
+        title={project.title}
         categoryLabel={category.zh}
+        images={[heroPlaceholder, ...galleryImages]}
       />
 
       {/* ===== 作品詳細資訊 ===== */}

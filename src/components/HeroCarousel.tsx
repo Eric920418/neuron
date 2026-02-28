@@ -2,25 +2,18 @@
 
 import { useRef, useState, useCallback } from "react";
 
-interface CarouselItem {
-  slug: string;
-  title: string;
-  heroImage: string;
-}
-
 interface Props {
-  current: CarouselItem;
-  siblings: CarouselItem[];
+  title: string;
   categoryLabel: string;
+  images: string[];
 }
 
 export default function HeroCarousel({
-  current,
-  siblings,
+  title,
   categoryLabel,
+  images,
 }: Props) {
-  const allItems = [current, ...siblings];
-  const count = allItems.length;
+  const count = images.length;
   const [activeIndex, setActiveIndex] = useState(0);
   const wheelCooldown = useRef(false);
 
@@ -43,7 +36,11 @@ export default function HeroCarousel({
     [count]
   );
 
-  const active = allItems[activeIndex];
+  /* 右側最多顯示 2 張縮圖，優先顯示 active 後面的圖片 */
+  const thumbIndices: number[] = [];
+  for (let offset = 1; offset < count && thumbIndices.length < 2; offset++) {
+    thumbIndices.push((activeIndex + offset) % count);
+  }
 
   return (
     <section
@@ -62,15 +59,15 @@ export default function HeroCarousel({
             aspectRatio: "1113 / 648",
           }}
         >
-          {active.heroImage ? (
+          {images[activeIndex] ? (
             <img
-              src={active.heroImage}
-              alt={active.title}
+              src={images[activeIndex]}
+              alt={`${title} - ${activeIndex + 1}`}
               className="h-full w-full object-cover"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-white/5 text-white/20">
-              {active.title}
+              {title}
             </div>
           )}
         </div>
@@ -78,34 +75,30 @@ export default function HeroCarousel({
         {/* 右側：縮圖 + 作品名稱 */}
         <div className="flex flex-col">
           <div className="flex items-start" style={{ gap: "clamp(8px, 0.8vw, 16px)" }}>
-            {allItems
-              .filter((_, i) => i !== activeIndex)
-              .map((item) => (
-                <button
-                  key={item.slug}
-                  type="button"
-                  onClick={() =>
-                    setActiveIndex(allItems.findIndex((a) => a.slug === item.slug))
-                  }
-                  className="relative block flex-shrink-0 overflow-hidden rounded-sm bg-white/5 text-left opacity-60 hover:opacity-80 transition-opacity"
-                  style={{
-                    width: "clamp(240px, 20vw, 384px)",
-                    aspectRatio: "563 / 328",
-                  }}
-                >
-                  {item.heroImage ? (
-                    <img
-                      src={item.heroImage}
-                      alt={item.title}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-white/10 text-sm text-white/30">
-                      {item.title}
-                    </div>
-                  )}
-                </button>
-              ))}
+            {thumbIndices.map((i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setActiveIndex(i)}
+                className="relative block flex-shrink-0 overflow-hidden rounded-sm bg-white/5 text-left opacity-60 hover:opacity-80 transition-opacity"
+                style={{
+                  width: "clamp(320px, 24vw, 640px)",
+                  aspectRatio: "563 / 328",
+                }}
+              >
+                {images[i] ? (
+                  <img
+                    src={images[i]}
+                    alt={`${title} - ${i + 1}`}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-white/10 text-sm text-white/30">
+                    圖片 {i + 1}
+                  </div>
+                )}
+              </button>
+            ))}
           </div>
           <div className="mt-4">
             <p
@@ -115,7 +108,7 @@ export default function HeroCarousel({
                 color: "rgb(237,239,241)",
               }}
             >
-              {active.title}
+              {title}
             </p>
             <p
               className="mt-0.5 text-foreground/60"
@@ -126,8 +119,6 @@ export default function HeroCarousel({
           </div>
         </div>
       </div>
-
-    
     </section>
   );
 }
