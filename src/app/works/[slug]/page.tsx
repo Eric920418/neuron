@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import HeroCarousel from "@/components/HeroCarousel";
+import WorkContent from "@/components/WorkContent";
 
 /* ─────────────────────── 作品資料 ─────────────────────── */
 
@@ -280,13 +280,9 @@ export default async function WorkDetailPage({
   if (!project) notFound();
 
   const category = CATEGORIES[project.categoryId];
-  /** placeholder 色塊 (之後替換為真實圖片) */
-  const heroPlaceholder = project.heroImage || "";
-  const galleryCount = project.galleryImages.length || 5;
-  const galleryImages =
-    project.galleryImages.length > 0
-      ? project.galleryImages
-      : Array.from({ length: galleryCount }, () => "");
+  const categoryProjects = PROJECTS.filter(
+    (p) => p.categoryId === project.categoryId
+  );
 
   return (
     <div className="min-h-screen bg-dark text-foreground">
@@ -388,123 +384,12 @@ export default async function WorkDetailPage({
         </div>
       </section>
 
-      {/* ===== HERO 圖片輪播區 ===== */}
-      <HeroCarousel
-        title={project.title}
+      {/* ===== 作品內容（Hero + 詳細資訊，客戶端狀態管理） ===== */}
+      <WorkContent
+        projects={categoryProjects}
+        initialSlug={slug}
         categoryLabel={category.zh}
-        images={[heroPlaceholder, ...galleryImages]}
       />
-
-      {/* ===== 作品詳細資訊 ===== */}
-      <main className="relative z-10 mx-auto max-w-[1920px] px-6 lg:px-16 mb-[360px] w-full">
-        <div className="flex gap-[30px] items-start ">
-          {/* teal 裝飾線 */}
-          <div
-            style={{
-              width: "15px",
-              height: "90px",
-              backgroundColor: "rgb(99,149,149)",
-            }}
-          />
-
-          {/* 作品資訊區 */}
-          <div className="w-full">
-            {/* 作品標題 */}
-            <h1
-              className="font-bold"
-              style={{
-                fontSize: "clamp(36px, 3.125vw, 60px)",
-                color: "rgb(237,239,241)",
-              }}
-            >
-              {project.title}
-            </h1>
-
-            {/* 英文組名 */}
-            <p
-              className="mt-4"
-              style={{
-                fontSize: "clamp(16px, 1.25vw, 24px)",
-                color: "rgb(255,255,255)",
-                fontFamily: "Inter, sans-serif",
-              }}
-            >
-              {project.englishName}
-            </p>
-
-            {/* 組員名單 */}
-            <div className="mt-3">
-              {project.members.map((line, i) => (
-                <p
-                  key={i}
-                  style={{
-                    fontSize: "clamp(16px, 1.25vw, 24px)",
-                    color: "rgb(255,255,255)",
-                    fontFamily: "Inter, sans-serif",
-                  }}
-                >
-                  {line}
-                </p>
-              ))}
-            </div>
-
-            {/* 作品描述 */}
-            <div className="mt-8 max-w-[1331px]">
-              {project.description.split("\n").map((paragraph, i) => (
-                <p
-                  key={i}
-                  className="mb-4 leading-relaxed"
-                  style={{
-                    fontSize: "clamp(16px, 1.25vw, 24px)",
-                    color: "rgb(255,255,255)",
-                  }}
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-
-            {/* 前往預約 按鈕 */}
-            <div className="mt-12 flex justify-end">
-              <a
-                href="/reserve"
-                className="inline-flex items-center justify-center transition-colors hover:bg-[rgb(99,149,149)] hover:text-dark"
-                style={{
-                  padding: "20px 40px",
-                  border: "1px solid rgb(99,149,149)",
-                  fontSize: "clamp(16px, 1.25vw, 24px)",
-                  color: "rgb(99,149,149)",
-                }}
-              >
-                前往預約
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* ===== 作品圖片展示 ===== */}
-        <section className="mx-auto mt-20 flex max-w-[1526px] flex-col gap-[60px]">
-          {galleryImages.map((img, idx) => (
-            <div
-              key={idx}
-              className="w-full overflow-hidden rounded-sm"
-              style={{ aspectRatio: "1526 / 905" }}
-            >
-              {img ? (
-                <img
-                  src={img}
-                  alt={`${project.title} - ${idx + 1}`}
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center bg-white text-lg text-neutral-400">
-                  作品圖片 {idx + 1}
-                </div>
-              )}
-            </div>
-          ))}
-        </section>
-      </main>
 
       {/* ===== FOOTER ===== */}
       <footer className="relative z-10 overflow-hidden pt-16">
