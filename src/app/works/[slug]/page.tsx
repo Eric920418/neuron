@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import HeroCarousel from "@/components/HeroCarousel";
 
 /* ─────────────────────── 作品資料 ─────────────────────── */
 
@@ -350,18 +351,25 @@ export default async function WorkDetailPage({
         alt=""
         aria-hidden="true"
         draggable={false}
-        className="pointer-events-none absolute right-[10%] top-[0] z-0 w-[30%] max-w-[500px] select-none opacity-60"
+        className="pointer-events-none absolute right-[20%] top-[-10%] z-0 w-[40%] max-w-[800px] select-none opacity-60"
       />
       <img
         src="/Group4.png"
         alt=""
         aria-hidden="true"
         draggable={false}
-        className="pointer-events-none absolute right-[5%] top-[15%] z-0 w-[20%] max-w-[400px] select-none opacity-40"
+        className="pointer-events-none absolute right-[10%] top-[25%] z-0 w-[25%] max-w-[500px] select-none opacity-60"
+      />
+      <img
+        src="/Group.png"
+        alt=""
+        aria-hidden="true"
+        draggable={false}
+        className="pointer-events-none absolute left-[-8%] top-[120%] z-0 w-[25%] max-w-[800px] select-none "
       />
 
       {/* ===== CATEGORY HEADER ===== */}
-      <section className="relative z-10 mx-auto max-w-[1920px] px-6 pt-[120px] lg:px-16">
+      <section className="relative z-10 mx-auto max-w-[1920px] px-6 pt-[374px] lg:px-16">
         <div className="flex items-start justify-between">
           {/* 左：中文分類名 */}
           <span
@@ -389,164 +397,96 @@ export default async function WorkDetailPage({
       </section>
 
       {/* ===== HERO 圖片輪播區 ===== */}
-      <section className="relative z-10 mt-8 overflow-hidden">
-        <div
-          className="flex items-end gap-4 px-6 lg:px-16"
-          style={{ overflowX: "auto", scrollbarWidth: "none" }}
-        >
-          {/* 主要大圖 */}
-          <div
-            className="flex-shrink-0 overflow-hidden rounded-sm bg-white/5"
-            style={{
-              width: "clamp(400px, 58vw, 1113px)",
-              aspectRatio: "1113 / 648",
-            }}
-          >
-            {heroPlaceholder ? (
-              <img
-                src={heroPlaceholder}
-                alt={project.title}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center bg-white/5 text-white/20">
-                {project.title}
-              </div>
-            )}
-          </div>
-
-          {/* 同類別其他作品縮圖 */}
-          <div className="flex flex-shrink-0 flex-wrap gap-4" style={{ maxWidth: "clamp(300px, 40vw, 800px)" }}>
-            {siblings.slice(0, 4).map((sib, idx) => (
-              <a
-                key={sib.slug}
-                href={`/works/${sib.slug}`}
-                className="group relative block flex-shrink-0 overflow-hidden rounded-sm bg-white/5 transition-opacity hover:opacity-80"
-                style={{
-                  width: "clamp(140px, 18vw, 340px)",
-                  aspectRatio: "563 / 328",
-                }}
-              >
-                {sib.heroImage ? (
-                  <img
-                    src={sib.heroImage}
-                    alt={sib.title}
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-white/10 text-sm text-white/30">
-                    {sib.title}
-                  </div>
-                )}
-                {/* 最後一張的右下角顯示作品名 */}
-                {idx === 1 && (
-                  <div className="absolute bottom-3 right-3 text-right">
-                    <p
-                      className="font-bold"
-                      style={{
-                        fontSize: "clamp(18px, 1.875vw, 36px)",
-                        color: "rgb(237,239,241)",
-                      }}
-                    >
-                      {sib.title}
-                    </p>
-                    <p
-                      className="mt-0.5 text-foreground/60"
-                      style={{ fontSize: "clamp(12px, 1.09vw, 21px)" }}
-                    >
-                      組別{category.zh}
-                    </p>
-                  </div>
-                )}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HeroCarousel
+        current={{ slug: project.slug, title: project.title, heroImage: heroPlaceholder }}
+        siblings={siblings.map(s => ({ slug: s.slug, title: s.title, heroImage: s.heroImage || "" }))}
+        categoryLabel={category.zh}
+      />
 
       {/* ===== 作品詳細資訊 ===== */}
-      <main className="relative z-10 mx-auto max-w-[1920px] px-6 lg:px-16">
-        {/* teal 裝飾線 */}
-        <div
-          className="my-12"
-          style={{
-            width: "15px",
-            height: "90px",
-            backgroundColor: "rgb(99,149,149)",
-          }}
-        />
-
-        {/* 作品資訊區 */}
-        <div className="max-w-[1474px]">
-          {/* 作品標題 */}
-          <h1
-            className="font-bold"
+      <main className="relative z-10 mx-auto max-w-[1920px] px-6 lg:px-16 mb-[360px] w-full">
+        <div className="flex gap-[30px] items-start ">
+          {/* teal 裝飾線 */}
+          <div
             style={{
-              fontSize: "clamp(36px, 3.125vw, 60px)",
-              color: "rgb(237,239,241)",
+              width: "15px",
+              height: "90px",
+              backgroundColor: "rgb(99,149,149)",
             }}
-          >
-            {project.title}
-          </h1>
+          />
 
-          {/* 英文組名 */}
-          <p
-            className="mt-4"
-            style={{
-              fontSize: "clamp(16px, 1.25vw, 24px)",
-              color: "rgb(255,255,255)",
-              fontFamily: "Inter, sans-serif",
-            }}
-          >
-            {project.englishName}
-          </p>
-
-          {/* 組員名單 */}
-          <div className="mt-3">
-            {project.members.map((line, i) => (
-              <p
-                key={i}
-                style={{
-                  fontSize: "clamp(16px, 1.25vw, 24px)",
-                  color: "rgb(255,255,255)",
-                  fontFamily: "Inter, sans-serif",
-                }}
-              >
-                {line}
-              </p>
-            ))}
-          </div>
-
-          {/* 作品描述 */}
-          <div className="mt-8 max-w-[1331px]">
-            {project.description.split("\n").map((paragraph, i) => (
-              <p
-                key={i}
-                className="mb-4 leading-relaxed"
-                style={{
-                  fontSize: "clamp(16px, 1.25vw, 24px)",
-                  color: "rgb(255,255,255)",
-                }}
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-
-          {/* 前往預約 按鈕 */}
-          <div className="mt-12 flex justify-end">
-            <a
-              href="/reserve"
-              className="inline-flex items-center justify-center transition-colors hover:bg-[rgb(99,149,149)] hover:text-dark"
+          {/* 作品資訊區 */}
+          <div className="w-full">
+            {/* 作品標題 */}
+            <h1
+              className="font-bold"
               style={{
-                padding: "20px 40px",
-                border: "1px solid rgb(99,149,149)",
-                fontSize: "clamp(16px, 1.25vw, 24px)",
-                color: "rgb(99,149,149)",
+                fontSize: "clamp(36px, 3.125vw, 60px)",
+                color: "rgb(237,239,241)",
               }}
             >
-              前往預約
-            </a>
+              {project.title}
+            </h1>
+
+            {/* 英文組名 */}
+            <p
+              className="mt-4"
+              style={{
+                fontSize: "clamp(16px, 1.25vw, 24px)",
+                color: "rgb(255,255,255)",
+                fontFamily: "Inter, sans-serif",
+              }}
+            >
+              {project.englishName}
+            </p>
+
+            {/* 組員名單 */}
+            <div className="mt-3">
+              {project.members.map((line, i) => (
+                <p
+                  key={i}
+                  style={{
+                    fontSize: "clamp(16px, 1.25vw, 24px)",
+                    color: "rgb(255,255,255)",
+                    fontFamily: "Inter, sans-serif",
+                  }}
+                >
+                  {line}
+                </p>
+              ))}
+            </div>
+
+            {/* 作品描述 */}
+            <div className="mt-8 max-w-[1331px]">
+              {project.description.split("\n").map((paragraph, i) => (
+                <p
+                  key={i}
+                  className="mb-4 leading-relaxed"
+                  style={{
+                    fontSize: "clamp(16px, 1.25vw, 24px)",
+                    color: "rgb(255,255,255)",
+                  }}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+
+            {/* 前往預約 按鈕 */}
+            <div className="mt-12 flex justify-end">
+              <a
+                href="/reserve"
+                className="inline-flex items-center justify-center transition-colors hover:bg-[rgb(99,149,149)] hover:text-dark"
+                style={{
+                  padding: "20px 40px",
+                  border: "1px solid rgb(99,149,149)",
+                  fontSize: "clamp(16px, 1.25vw, 24px)",
+                  color: "rgb(99,149,149)",
+                }}
+              >
+                前往預約
+              </a>
+            </div>
           </div>
         </div>
 
