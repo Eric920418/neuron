@@ -1,59 +1,11 @@
-import Marquee from "@/components/Marquee";
+import HeroVideo from "@/components/HeroVideo";
 import Navbar from "@/components/Navbar";
-import NeuralNetwork from "@/components/NeuralNetwork";
-import NeuronLogo from "@/components/NeuronLogo";
 import ScrollCards from "@/components/ScrollCards";
 
 /** 以 1920×1080 為設計稿基準，根據 vw / dvh 等比縮放，不超過原始 px */
 const s = (px: number) =>
   `min(${px}px, calc(${px} / 1920 * 100vw), calc(${px} / 1080 * 100dvh))`;
 
-const MARQUEE_ROWS = [
-  {
-    texts: ["DEGREE SHOW"],
-    reverse: false,
-    speed: "normal" as const,
-  },
-  {
-    texts: ["INFO COMMUNICATION"],
-    reverse: false,
-    speed: "fast" as const,
-  },
-  {
-    texts: ["2026"],
-    reverse: false,
-    speed: "slow" as const,
-  },
-  {
-    texts: ["YUAN ZE UNIVERSITY"],
-    reverse: false,
-    speed: "normal" as const,
-  },
-  {
-    texts: ["YUAN ZE UNIVERSITY"],
-    reverse: false,
-    speed: "fast" as const,
-  },
-];
-
-const EXHIBITION_GROUPS = [
-  {
-    label: "校外展",
-    dates: [
-      { date: "05.08", location: "松山文創園區" },
-      { date: "05.11", location: "二號倉庫" },
-    ],
-    separator: "·",
-  },
-  {
-    label: "校內展",
-    dates: [
-      { date: "04.13", location: "五館三樓" },
-      { date: "04.17", location: "六館玻璃屋" },
-    ],
-    separator: "/",
-  },
-];
 
 const DESCRIPTION_LINES = [
   "資訊傳播系的核心，在於促進「感性與理性」的共融。",
@@ -87,98 +39,11 @@ export default function Home() {
       <Navbar activePath="/" />
 
       {/* ===== HERO SECTION ===== */}
-      <section className="relative pt-20">
-        {/* 大 Logo */}
-        <img
-          src="/navbar-logo.webp"
-          alt=""
-          aria-hidden="true"
-          draggable={false}
-          className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 select-none"
-          style={{ width: s(1600) }}
+      <section className="relative">
+        <HeroVideo
+          src="/2idn5F0yIRoIEQd6I8A0Y7G0j4n6zxELw5Pv87X4-Fo.MP4"
+          crossfadeDuration={1.5}
         />
-        {/* Marquee Text Rows */}
-        <div className="space-y-0">
-          {MARQUEE_ROWS.map((row, idx) => (
-            <Marquee
-              key={idx}
-              reverse={row.reverse}
-              speed={row.speed}
-              className=" border-white/5 "
-            >
-              <div
-                className="flex min-w-[100vw] items-center"
-                style={{ gap: s(32), paddingInline: s(16) }}
-              >
-                {row.texts.map((text, i) => (
-                  <span
-                    key={i}
-                    className={`font-bold tracking-tight ${
-                      /[\u4e00-\u9fff]/.test(text)
-                        ? "font-sans"
-                        : "font-mono uppercase"
-                    } text-white/40`}
-                    style={{ fontSize: s(140) }}
-                  >
-                    {text}
-                  </span>
-                ))}
-              </div>
-            </Marquee>
-          ))}
-        </div>
-
-        {/* 展覽日期 - 右下角 */}
-        <div
-          className="absolute bottom-[10%] right-0 z-20 flex  text-white"
-          style={{ gap: s(64), padding: `${s(28)} ${s(48)}` }}
-        >
-          {EXHIBITION_GROUPS.map((group) => (
-            <div key={group.label} className="flex items-start" style={{ gap: s(8) }}>
-              {/* 直排標籤 */}
-              <span
-                className="flex-shrink-0 font-bold text-white tracking-[0.15em]"
-                style={{ writingMode: "vertical-rl", fontSize: s(24) }}
-              >
-                {group.label}
-              </span>
-              {/* 日期組 */}
-              <div className="flex items-center">
-                {group.dates.map((d, i) => (
-                  <div key={i} className="flex items-center">
-                    {i > 0 && (
-                      <div
-                        className="bg-white/60"
-                        style={{ width: s(48), height: '1px', marginInline: s(12) }}
-                      />
-                    )}
-                    <div className="flex flex-col items-start">
-                      <span
-                        className="font-mono font-bold leading-none text-white"
-                        style={{ fontSize: s(44) }}
-                      >
-                        {d.date}
-                      </span>
-                      <div className="flex items-center" style={{ marginTop: s(6) }}>
-                        <span className="text-white" style={{ fontSize: s(24) }}>
-                          {d.location}
-                        </span>
-                        {i < group.dates.length - 1 && (
-                          <span
-                            className="text-white/60"
-                            style={{ fontSize: s(24), marginInline: s(12) }}
-                          >
-                            {group.separator}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
       </section>
 
       {/* ===== SCROLL CARDS / 作品展示 SECTION ===== */}
