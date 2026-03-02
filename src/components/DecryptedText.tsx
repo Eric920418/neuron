@@ -5,6 +5,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 interface DecryptedTextProps {
   text: string;
   speed?: number;
+  scrambleDuration?: number;
   className?: string;
   characters?: string;
 }
@@ -14,6 +15,7 @@ const SCRAMBLE_INTERVAL = 30;
 export default function DecryptedText({
   text,
   speed = 80,
+  scrambleDuration = 300,
   className = "",
   characters = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 }: DecryptedTextProps) {
@@ -22,6 +24,7 @@ export default function DecryptedText({
   const revealedRef = useRef(0);
   const scrambleTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const revealTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const delayTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const randomChar = useCallback(
     () => characters[Math.floor(Math.random() * characters.length)],
@@ -37,6 +40,10 @@ export default function DecryptedText({
       clearInterval(revealTimer.current);
       revealTimer.current = null;
     }
+    if (delayTimer.current) {
+      clearTimeout(delayTimer.current);
+      delayTimer.current = null;
+    }
   }, []);
 
   useEffect(() => {
@@ -47,10 +54,10 @@ export default function DecryptedText({
       return;
     }
 
-    // Hovering: start scramble + reveal
+    // Hovering: start scramble, then reveal after delay
     revealedRef.current = 0;
 
-    // Fast interval: update scrambled characters every tick
+    // Phase 1: all characters scramble
     scrambleTimer.current = setInterval(() => {
       const count = revealedRef.current;
       setDisplay(
@@ -64,17 +71,19 @@ export default function DecryptedText({
       );
     }, SCRAMBLE_INTERVAL);
 
-    // Slower interval: reveal one character at a time
-    revealTimer.current = setInterval(() => {
-      revealedRef.current += 1;
-      if (revealedRef.current >= text.length) {
-        clearTimers();
-        setDisplay(text);
-      }
-    }, speed);
+    // Phase 2: after scrambleDuration, start revealing left-to-right
+    delayTimer.current = setTimeout(() => {
+      revealTimer.current = setInterval(() => {
+        revealedRef.current += 1;
+        if (revealedRef.current >= text.length) {
+          clearTimers();
+          setDisplay(text);
+        }
+      }, speed);
+    }, scrambleDuration);
 
     return clearTimers;
-  }, [isHovering, text, speed, randomChar, clearTimers]);
+  }, [isHovering, text, speed, scrambleDuration, randomChar, clearTimers]);
 
   return (
     <span
