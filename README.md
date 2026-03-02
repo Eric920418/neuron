@@ -40,6 +40,8 @@ src/
     contact/page.tsx  # 聯絡我們頁面 (/contact)
     globals.css       # 全域樣式 + Marquee 動畫
   components/
+    Navbar.tsx        # 共享導覽列組件 (DecryptedText hover 動畫)
+    DecryptedText.tsx # 文字解密動畫組件 (hover 觸發)
     NeuronLogo.tsx    # 神經元 SVG Logo
     Marquee.tsx       # 跑馬燈組件
     NeuralNetwork.tsx # 神經網絡視覺圖
@@ -52,7 +54,7 @@ public/
 
 ### 首頁 (`/`)
 
-1. **Navbar** — 固定導覽列 (Logo + 資訊/作品/預約/聯絡我們)
+1. **Navbar** — 共享固定導覽列 (Logo + 資訊/作品/預約/聯絡我們，DecryptedText hover 解密動畫)
 2. **Hero** — 跑馬燈文字列 + 展覽日期
 3. **作品展示** — Scroll-driven 卡片切換 (Framer Motion useScroll + useTransform)
 4. **About / 主視覺** — 神經元 29屆畢業展資訊 + 展覽描述

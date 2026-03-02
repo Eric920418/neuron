@@ -1,4 +1,5 @@
 import Marquee from "@/components/Marquee";
+import Navbar from "@/components/Navbar";
 import NeuralNetwork from "@/components/NeuralNetwork";
 import NeuronLogo from "@/components/NeuronLogo";
 import ScrollCards from "@/components/ScrollCards";
@@ -83,43 +84,7 @@ const SOCIAL_LINKS = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-dark text-foreground">
-      {/* ===== NAVBAR ===== */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-dark/90 backdrop-blur-md">
-        <div className="mx-auto flex h-[80px] max-w-[1920px] items-center px-6 lg:px-16">
-          <img src="/navbar-logo.webp" alt="神經元" className="h-20 w-auto" draggable={false} />
-          <div className="hidden flex-1 items-center justify-center gap-16 md:flex">
-            <a
-              href="/info"
-              className="font-mono text-sm tracking-wider text-foreground/80 transition-colors hover:text-white"
-            >
-              資訊
-            </a>
-            <a
-              href="/works"
-              className="font-mono text-sm tracking-wider text-foreground/80 transition-colors hover:text-white"
-            >
-              作品
-            </a>
-            <a
-              href="/reserve"
-              className="font-mono text-sm tracking-wider text-foreground/80 transition-colors hover:text-white"
-            >
-              預約
-            </a>
-          </div>
-          <a
-            href="/contact"
-            className="hidden rounded-full border border-foreground/30 px-8 py-2.5 font-mono text-sm tracking-wider transition-all hover:border-white hover:bg-white hover:text-dark md:block"
-          >
-            聯絡我們
-          </a>
-          {/* Mobile menu button */}
-          <button className="flex flex-col gap-1.5 md:hidden" aria-label="選單">
-            <span className="block h-0.5 w-6 bg-foreground" />
-            <span className="block h-0.5 w-6 bg-foreground" />
-          </button>
-        </div>
-      </nav>
+      <Navbar activePath="/" />
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative pt-20">
