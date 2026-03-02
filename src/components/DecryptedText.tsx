@@ -14,8 +14,8 @@ const SCRAMBLE_INTERVAL = 30;
 
 export default function DecryptedText({
   text,
-  speed = 80,
-  scrambleDuration = 300,
+  speed = 120,
+  scrambleDuration = 500,
   className = "",
   characters = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 }: DecryptedTextProps) {

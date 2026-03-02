@@ -39,7 +39,7 @@ export default function Navbar({ activePath }: NavbarProps) {
                   isActive ? "text-white" : "text-foreground/80"
                 }`}
               >
-                <DecryptedText text={link.label} speed={50} />
+                <DecryptedText text={link.label} speed={120} />
               </a>
             );
           })}
@@ -52,7 +52,7 @@ export default function Navbar({ activePath }: NavbarProps) {
               : "border-foreground/30 hover:border-white hover:bg-white hover:text-dark"
           }`}
         >
-          <DecryptedText text="聯絡我們" speed={50} />
+          <DecryptedText text="聯絡我們" speed={120} />
         </a>
         {/* Mobile menu button */}
         <button
